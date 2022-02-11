@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
-import {api} from '../api/api'
+import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
 
@@ -20,9 +20,11 @@ const House = () => {
 	const flatData = useSelector(state => state.house.flatData);
 
 	const handleChange = (e, setSelect, id) => {
+		console.log(e.target.value)
 		setSelect(e.target.value);
 		if (id === 'street'){
 			dataHouse(e.target.value)
+			console.log(e.target.value)
 			setHouse('')
 			setFlat('')
 		}
@@ -36,8 +38,13 @@ const House = () => {
 	}, [])
 
 	const dataStreet = async ()=>{
-		const data = await api.getStreet()
-		dispatch(optionsStreet(data))
+		dispatch(optionsStreet(await api.getStreet()))
+	}
+	const dataHouse = async (id)=>{
+		dispatch(optionsHouse(await api.getHouse(id)))
+	}
+	const dataFlat = async (id)=>{
+		dispatch(optionsFlat(await api.getFlat(id)))
 	}
 
 	const renderOptions = (data) =>{
@@ -49,14 +56,7 @@ const House = () => {
 	const renderFlat = renderOptions(flatData)
 
 
-	const dataHouse = async (id)=>{
-		const data = await api.getHouse(id)
-		dispatch(optionsHouse(data))
-	}
-	const dataFlat = async (id)=>{
-		const data = await api.getFlat(id)
-		dispatch(optionsFlat(data))
-	}
+
 
 	return (
 		<Box className='box'>

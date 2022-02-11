@@ -1,14 +1,17 @@
 
-import './App.css';
-import House from "./components/House";
+import './App.scss';
+import House from "./components/Adress/House";
+import Occupant from "./components/Occupant/Occupant";
+import Paper from "@mui/material/Paper";
 
 
 const App =()=> {
 
   return (
-    <div>
+    <Paper className='wrapper'>
        <House/>
-    </div>
+       <Occupant/>
+    </Paper>
   );
 }
 

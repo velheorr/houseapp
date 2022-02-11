@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import house from '../components/HouseSlice'
+import house from '../components/Adress/HouseSlice'
 
 
 const store = configureStore({
