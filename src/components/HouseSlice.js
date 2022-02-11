@@ -2,7 +2,8 @@ import {createSlice} from '@reduxjs/toolkit'
 
 
 const initialState = {
-
+	streetData: [],
+	houseData: []
 }
 
 
@@ -10,7 +11,8 @@ const houseSlice = createSlice({
 	name: 'house',
 	initialState,
 	reducers: {
-		menu: (state, action) => {state.selectMenu = action.payload},
+		optionsStreet: (state, action) => {state.streetData = action.payload},
+		optionsHouse: (state, action) => {state.houseData = action.payload},
 	},
 });
 
@@ -18,5 +20,5 @@ const {actions, reducer} = houseSlice;
 
 export default reducer;
 export const {
-	menu
+	optionsStreet, optionsHouse
 } = actions;
