@@ -29,11 +29,10 @@ export const api = {
 		}
 	},
 	async getOccupants(data){
-		try {
-			const response = await axios.get(`${baseURL}HousingStock`);
+		/*try {
+			const response = await axios.get(`${baseURL}HousingStock?companyId=1&streetId=${id}&houseId=${id}`);
 			return response.data
 		} catch (error) {
 			console.error(error);
-		}
+		}*/
 	}
-}
