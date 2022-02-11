@@ -10,13 +10,21 @@ export const api = {
 		} catch (error) {
 			console.error(error);
 		}
-		const street = response.data.map(i => { return {id: i.id, name: i.name}})
-		return street
+		return response.data.map(i => { return {id: i.id, name: i.name}})
 	},
 	async getHouse(id){
 		let response
 		try {
 			response = await axios.get(`${baseURL}houses/${id}`);
+		} catch (error) {
+			console.error(error);
+		}
+		return response.data
+	},
+	async getFlat(id){
+		let response
+		try {
+			response = await axios.get(`${baseURL}house_flats/${id}`);
 			console.log(response)
 		} catch (error) {
 			console.error(error);

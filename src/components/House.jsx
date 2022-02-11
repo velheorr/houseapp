@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import {api} from '../api/api'
 import {useDispatch, useSelector} from "react-redux";
-import {optionsHouse, optionsStreet} from './HouseSlice'
+import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
 
 
 const House = () => {
@@ -17,12 +17,18 @@ const House = () => {
 	const dispatch = useDispatch()
 	const streetData = useSelector(state => state.house.streetData);
 	const houseData = useSelector(state => state.house.houseData);
+	const flatData = useSelector(state => state.house.flatData);
 
 	const handleChange = (e, setSelect, id) => {
 		setSelect(e.target.value);
 		if (id === 'street'){
 			dataHouse(e.target.value)
 			setHouse('')
+			setFlat('')
+		}
+		if (id === 'house'){
+			dataFlat(e.target.value)
+			setFlat('')
 		}
 	};
 	useEffect(()=>{
@@ -40,11 +46,16 @@ const House = () => {
 
 	const renderStreet = renderOptions(streetData)
 	const renderHouse = renderOptions(houseData)
+	const renderFlat = renderOptions(flatData)
 
 
 	const dataHouse = async (id)=>{
 		const data = await api.getHouse(id)
 		dispatch(optionsHouse(data))
+	}
+	const dataFlat = async (id)=>{
+		const data = await api.getFlat(id)
+		dispatch(optionsFlat(data))
 	}
 
 	return (
@@ -68,7 +79,7 @@ const House = () => {
 					id="house-select"
 					value={house}
 					label="Дом"
-					onChange={(e)=> handleChange(e, setHouse)}
+					onChange={(e)=> handleChange(e, setHouse, 'house')}
 				>
 					{renderHouse}
 				</Select>
@@ -82,7 +93,7 @@ const House = () => {
 					label="Квартира"
 					onChange={(e)=> handleChange(e, setFlat)}
 				>
-
+					{renderFlat}
 				</Select>
 			</FormControl>
 		</Box>
