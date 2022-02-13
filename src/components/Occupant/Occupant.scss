@@ -1,0 +1,27 @@
+.noData {
+    text-align: center;
+    font-size: 25px;
+}
+.card {
+    display: flex;
+    >div:first-child {
+        width: 20%;
+        margin: auto 0;
+    }
+    .icon {
+        vertical-align: middle;
+        font-size: 16px;
+    }
+    .green {
+        color: green;
+    }
+}
+
+.btnGroup {
+    width: 100%;
+    >button {
+        width: 50%;
+        color: grey;
+        border-color: rgb(72 72 72 / 50%) !important;
+    }
+}

@@ -9,6 +9,7 @@ import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet, setOccupants} from './HouseSlice'
 import Button from "@mui/material/Button";
+import SelectMenu from "../../assets/SelectMenu";
 
 
 const House = () => {
@@ -37,7 +38,7 @@ const House = () => {
 		}
 	};
 	useEffect(()=>{
-		dataStreet()
+		/*dataStreet()*/
 	}, [])
 
 	const dataStreet = async ()=>{
@@ -62,8 +63,7 @@ const House = () => {
 	const getOcup = async (street, house, flatName)=>{
 		const data = await api.getOccupants(street, house, flatName)
 			/*.then(response => {
-				console.log(response);
-				setOccupants(response.clients);
+				dispatch(setOccupants(data.clients))
 			})*/
 		console.log(data)
 		console.log(data.clients)
@@ -85,7 +85,7 @@ const House = () => {
 	return (
 		<Box className='box'>
 			<p><span className='red'>*</span>Адрес</p>
-			<Button onClick={setData} variant="contained">Федюнинского 30</Button>
+			{/*<SelectMenu value={street} onChange={(e)=> handleChange(e, setStreet, 'street')} render={renderStreet} id='street' idSelect='street-select' label='Улица'/>*/}
 			<FormControl sx={{ width: 250 }} >
 				<InputLabel id="street">Улица</InputLabel>
 				<Select
@@ -122,6 +122,7 @@ const House = () => {
 					{renderFlat}
 				</Select>
 			</FormControl>
+			<Button onClick={setData} variant="contained">Федюнинского 30</Button>
 		</Box>
 	);
 };
