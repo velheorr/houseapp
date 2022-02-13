@@ -65,9 +65,9 @@ const House = () => {
 				console.log(response);
 				setOccupants(response.clients);
 			})*/
-		console.log(data);
-		console.log(data.clients);
-		setOccupants(data.clients);
+		console.log(data)
+		console.log(data.clients)
+		dispatch(setOccupants(data.clients))
 
 	}
 	const setData = ()=>{
@@ -84,6 +84,7 @@ const House = () => {
 
 	return (
 		<Box className='box'>
+			<p><span className='red'>*</span>Адрес</p>
 			<Button onClick={setData} variant="contained">Федюнинского 30</Button>
 			<FormControl sx={{ width: 250 }} >
 				<InputLabel id="street">Улица</InputLabel>

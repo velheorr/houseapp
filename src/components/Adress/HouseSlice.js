@@ -16,10 +16,7 @@ const houseSlice = createSlice({
 		optionsStreet: (state, action) => {state.streetData = action.payload},
 		optionsHouse: (state, action) => {state.houseData = action.payload},
 		optionsFlat: (state, action) => {state.flatData = action.payload},
-		setOccupants: (state, action) => {
-			console.log(action.payload)
-			state.occupantsData = action.payload
-		},
+		setOccupants: (state, action) => {state.occupantsData = action.payload},
 	},
 });
 
