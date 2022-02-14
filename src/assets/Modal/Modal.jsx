@@ -8,11 +8,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Divider from "@mui/material/Divider";
 import {showModal} from "./ModalSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TextField from "@mui/material/TextField";
+import {useForm} from "react-hook-form";
 
 const Modal = () => {
     const dispatch = useDispatch()
+    const occupantsAdress = useSelector(state => state.occupant.occupantsAdress);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data =>{
+        console.log(data)
+    };
 
 
     return (
@@ -24,18 +30,21 @@ const Modal = () => {
                         <IconButton onClick={()=> dispatch(showModal(false))}><CloseIcon /></IconButton>
                     </div>
                     <Divider style={{margin: 5}}/>
-                    <CardContent>
-                        <div className='fields'>
-                            <TextField label="Телефон" />
-                            <TextField label="E-mail" />
-                            <TextField label="Ф.И.О." />
-                        </div>
-                    </CardContent>
-                    <Divider style={{margin: 5}}/>
-                    <CardActions style={{float:'right'}}>
-                             <Button size="small" variant="outlined" onClick={()=> dispatch(showModal(false))}>Отменить</Button>
-                            <Button size="small" variant="outlined" >Добавить</Button>
-                    </CardActions>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <CardContent>
+                            <div className='adress'>{occupantsAdress}</div>
+                            <div className='fields'>
+                                <TextField size='small' label="Телефон*" {...register("Name",{ required: true})} error={!!errors.Name}/>
+                                <TextField size='small' label="E-mail" {...register("Email")}/>
+                                <TextField size='small' label="Ф.И.О." {...register("Phone")}/>
+                            </div>
+                        </CardContent>
+                        <Divider style={{margin: 5}}/>
+                        <CardActions style={{float:'right'}}>
+                            <Button size="small" variant="outlined" onClick={()=> dispatch(showModal(false))}>Отменить</Button>
+                            <Button size="small" variant="outlined" type="submit">Добавить</Button>
+                        </CardActions>
+                    </form>
                 </Card>
             </div>
         </div>
