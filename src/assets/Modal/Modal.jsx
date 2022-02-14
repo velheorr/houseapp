@@ -1,12 +1,8 @@
 import './Modal.scss'
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import IconButton from "@mui/material/IconButton";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
+import {Button, Card, IconButton, CardContent, CardActions, Divider} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Divider from "@mui/material/Divider";
+
 import {dataForModal, showModal} from "./ModalSlice";
 import {useDispatch, useSelector} from "react-redux";
 import TextField from "@mui/material/TextField";
@@ -20,6 +16,7 @@ const Modal = () => {
     const addressId = useSelector(state => state.occupant.addressId);
     const data = useSelector(state => state.modal.data);
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+
     const onSubmit = clientData =>{
         if (data){
             api.updateClient({AddressId: addressId, ClientId: data.id})
@@ -30,12 +27,14 @@ const Modal = () => {
         dispatch(dataForModal(''))
     };
 
+    // заполнение инпутов, если выбрано редактирование
     if (data){
         setValue('Name', data.name);
         setValue('Phone', data.phone);
         setValue('Email', data.email);
     }
 
+    // закрытие и очистка модального окна
     const closeModal = ()=>{
         dispatch(showModal(false))
         dispatch(dataForModal(''))
