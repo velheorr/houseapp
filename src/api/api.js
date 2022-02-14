@@ -40,5 +40,34 @@ export const api = {
 		} catch (error) {
 			console.error(error);
 		}
+	},
+	async getClient(phone) {
+		try {
+			const response = await axios.get(`${baseURL}HousingStock/client?phone=${phone}`);
+			return {email: response.data.email, name: response.data.name, phone: response.data.phone, id: response.data.id}
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async postClient(data){
+		try {
+			await axios.post(`${baseURL}HousingStock/client`, data);
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async updateClient(data){
+		try {
+			await axios.put(`${baseURL}HousingStock/bind_client`, data);
+		} catch (error) {
+			console.error(error);
+		}
+	},
+	async deleteClient(id){
+		try {
+			await axios.delete(`${baseURL}HousingStock/bind_client/${id}`);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 }
