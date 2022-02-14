@@ -1,31 +1,35 @@
 import './Modal.scss'
 import Button from "@mui/material/Button";
-
+import Card from "@mui/material/Card";
+import IconButton from "@mui/material/IconButton";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import CloseIcon from '@mui/icons-material/Close';
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import Divider from "@mui/material/Divider";
+import {showModal} from "./ModalSlice";
+import {useDispatch} from "react-redux";
 
 const Modal = () => {
-    const modalData = useSelector(state => state.launches.modalData);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    // удаление элемента из моих полётов
-/*    const deleteLaunch = () =>{
-        dispatch(delMyLaunch(modalData.name))
-        dispatch(switchModal())
-    }*/
 
     return (
         <div className='modal'>
             <div className='modalContent'>
-                <Card sx={{ maxWidth: 400, margin: '0 auto' }}>
-                    <div className='close' onClick={}>
-                        <div>Cancel flight reservation?</div>
-                        <IconButton><CloseIcon /></IconButton>
+                <Card sx={{ maxWidth: 500, margin: '0 auto' }}>
+                    <div className='close' >
+                        <div><PersonOutlineIcon color='primary' className='icon'/> Добавить жильца</div>
+                        <IconButton onClick={()=> dispatch(showModal(false))}><CloseIcon /></IconButton>
                     </div>
+                    <Divider style={{margin: 5}}/>
                     <CardContent>
                         <div className='title'>111</div>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small" color='error' onClick={}>Confirm</Button>
-                        <Button size="small" onClick={}>Cancel</Button>
+                    <Divider style={{margin: 5}}/>
+                    <CardActions style={{float:'right'}}>
+                             <Button size="small" variant="outlined" onClick={()=> dispatch(showModal(false))}>Отменить</Button>
+                            <Button size="small" variant="outlined" >Добавить</Button>
                     </CardActions>
                 </Card>
             </div>

@@ -9,7 +9,9 @@ import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet, setOccupants} from './HouseSlice'
 import Button from "@mui/material/Button";
-import SelectMenu from "../../assets/SelectMenu";
+import Divider from "@mui/material/Divider";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 
 const House = () => {
@@ -85,7 +87,16 @@ const House = () => {
 	return (
 		<Box className='box'>
 			<p><span className='red'>*</span>Адрес</p>
-			{/*<SelectMenu value={street} onChange={(e)=> handleChange(e, setStreet, 'street')} render={renderStreet} id='street' idSelect='street-select' label='Улица'/>*/}
+			<Divider style={{margin: '15px 0'}}/>
+			<FormControl sx={{ width: 250 }} >
+				<Autocomplete
+					id="free-solo-demo"
+					freeSolo
+					options={street || []}
+					renderInput={(params) => <TextField {...params} label="Улица" />}
+				/>
+			</FormControl>
+
 			<FormControl sx={{ width: 250 }} >
 				<InputLabel id="street">Улица</InputLabel>
 				<Select
@@ -122,7 +133,7 @@ const House = () => {
 					{renderFlat}
 				</Select>
 			</FormControl>
-			<Button onClick={setData} variant="contained">Федюнинского 30</Button>
+			<Button onClick={setData} variant="contained" style={{float: 'right'}}>Федюнинского 30</Button>
 		</Box>
 	);
 };

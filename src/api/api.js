@@ -42,5 +42,3 @@ export const api = {
 		}
 	}
 }
-/*
-https://dispex.org/api/vtest/HousingStock?companyId=1&streetId=134&houseId=294*/

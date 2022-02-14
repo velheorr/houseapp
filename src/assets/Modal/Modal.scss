@@ -16,6 +16,10 @@
             font-weight: 600;
             text-align: center;
         }
+        .icon {
+            vertical-align: middle;
+            font-size: 35px;
+        }
     }
     .close {
         display: grid;
@@ -25,6 +29,7 @@
         text-align: center;
         >div {
             padding-top: 10px;
+            text-align: left;
         }
     }
 }
