@@ -9,6 +9,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import Divider from "@mui/material/Divider";
 import {showModal} from "./ModalSlice";
 import {useDispatch} from "react-redux";
+import TextField from "@mui/material/TextField";
 
 const Modal = () => {
     const dispatch = useDispatch()
@@ -24,7 +25,11 @@ const Modal = () => {
                     </div>
                     <Divider style={{margin: 5}}/>
                     <CardContent>
-                        <div className='title'>111</div>
+                        <div className='fields'>
+                            <TextField label="Телефон" />
+                            <TextField label="E-mail" />
+                            <TextField label="Ф.И.О." />
+                        </div>
                     </CardContent>
                     <Divider style={{margin: 5}}/>
                     <CardActions style={{float:'right'}}>

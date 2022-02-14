@@ -7,11 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
-import {optionsFlat, optionsHouse, optionsStreet, setOccupants} from './HouseSlice'
+import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import {setOccupants} from "../Occupant/OccupantSlice";
+
+
 
 
 const House = () => {
@@ -40,7 +41,7 @@ const House = () => {
 		}
 	};
 	useEffect(()=>{
-		/*dataStreet()*/
+		dataStreet()
 	}, [])
 
 	const dataStreet = async ()=>{
@@ -63,15 +64,10 @@ const House = () => {
 	const renderFlat = renderOptions(flatData);
 
 	const getOcup = async (street, house, flatName)=>{
-		const data = await api.getOccupants(street, house, flatName)
-			/*.then(response => {
-				dispatch(setOccupants(data.clients))
-			})*/
-		console.log(data)
-		console.log(data.clients)
-		dispatch(setOccupants(data.clients))
-
+		dispatch(setOccupants(await api.getOccupants(street, house, flatName)))
 	}
+
+
 	const setData = ()=>{
 		setStreet(134);
 		dataHouse(134).then()
@@ -80,7 +76,6 @@ const House = () => {
 			dataFlat(294);
 			setFlat('');
 		}, 1000)
-
 	}
 
 
@@ -88,15 +83,6 @@ const House = () => {
 		<Box className='box'>
 			<p><span className='red'>*</span>Адрес</p>
 			<Divider style={{margin: '15px 0'}}/>
-			<FormControl sx={{ width: 250 }} >
-				<Autocomplete
-					id="free-solo-demo"
-					freeSolo
-					options={street || []}
-					renderInput={(params) => <TextField {...params} label="Улица" />}
-				/>
-			</FormControl>
-
 			<FormControl sx={{ width: 250 }} >
 				<InputLabel id="street">Улица</InputLabel>
 				<Select

@@ -20,6 +20,11 @@
             vertical-align: middle;
             font-size: 35px;
         }
+        .fields {
+            >div {
+                margin-bottom: 15px;
+            }
+        }
     }
     .close {
         display: grid;

@@ -8,15 +8,17 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 
-const OccupantCard = () => {
+const OccupantCard = ({item}) => {
+    console.log(item)
+    const {id, name, phone, email} = item;
     return (
         <Card sx={{ maxWidth: 300 }}>
             <CardContent className='card'>
                 <div><PersonOutlineIcon color='primary'/></div>
                 <div>
-                    <div>Иванов Иван Иванович</div>
-                    <div className="green"><LocalPhoneIcon className='icon'/> 89026410747</div>
-                    <div><MailOutlineIcon className='icon'/> velheorr@gmail.com</div>
+                    <div>{name}</div>
+                    <div className="green"><LocalPhoneIcon className='icon'/> {phone}</div>
+                    <div><MailOutlineIcon className='icon'/> {email}</div>
                 </div>
             </CardContent>
             <CardActions>

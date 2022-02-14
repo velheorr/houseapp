@@ -5,7 +5,6 @@ const initialState = {
 	streetData: [],
 	houseData: [],
 	flatData: [],
-	occupantsData: []
 }
 
 
