@@ -1,29 +1,24 @@
 import {useEffect, useState} from "react";
 import './House.scss'
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
+import {Box, FormControl, Select, MenuItem, InputLabel, Button, Divider} from "@mui/material";
 import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
 import {setOccupants} from "../Occupant/OccupantSlice";
 
 
-
-
 const House = () => {
+	// стейт для работы селектов
 	const [street, setStreet] = useState('');
 	const [house, setHouse] = useState('');
 	const [flat, setFlat] = useState('');
+
 	const dispatch = useDispatch();
 	const streetData = useSelector(state => state.house.streetData);
 	const houseData = useSelector(state => state.house.houseData);
 	const flatData = useSelector(state => state.house.flatData);
 
+	// ф-я получает какой селект изменить и ф-ю стейта
 	const handleChange = (e, setSelect, id) => {
 		setSelect(e.target.value);
 		if (id === 'street'){
@@ -40,34 +35,40 @@ const House = () => {
 			getOcup(street, house, flatName);
 		}
 	};
+	// первоначальная загрузка данных первого селекта
 	useEffect(()=>{
 		dataStreet()
 	}, [])
 
+	// получение обьекта улиц
 	const dataStreet = async ()=>{
 		dispatch(optionsStreet(await api.getStreet()))
 	}
+	// получение обьекта домов
 	const dataHouse = async (id)=>{
 		dispatch(optionsHouse(await api.getHouse(id)))
 	}
+	// получение обьекта квартир
 	const dataFlat = async (id)=>{
 		dispatch(optionsFlat(await api.getFlat(id)))
 	}
 
-
+	//ф-я рендера опций селекта
 	const renderOptions = (data) =>{
 		return data.map((item,i) => <MenuItem key={i} value={item.id}>{item.name}</MenuItem>)
 	}
 
+	// рендер всех селектов
 	const renderStreet = renderOptions(streetData);
 	const renderHouse = renderOptions(houseData);
 	const renderFlat = renderOptions(flatData);
 
+	// получение жителей
 	const getOcup = async (street, house, flatName)=>{
 		dispatch(setOccupants(await api.getOccupants(street, house, flatName)))
 	}
 
-
+	// временная кнопка для тестирования (загружает улицу и дом - Федюнинского 30)
 	const setData = ()=>{
 		setStreet(134);
 		dataHouse(134).then()

@@ -13,6 +13,7 @@ const OccupantCard = ({item}) => {
     const {id, name, phone, email} = item;
     const dispatch = useDispatch()
 
+    // открытие модального окна и получение данных для редактирования жителя
     const openModal = ()=>{
         api.getClient(phone)
             .then(res => {
@@ -21,6 +22,7 @@ const OccupantCard = ({item}) => {
             })
     }
 
+    // удаление жителя по id
     const onDelete = ()=>{
         api.deleteClient(id)
     }

@@ -4,7 +4,6 @@ const initialState = {
 	occupantsData: {},
 	occupantsAdress: '',
 	addressId: ''
-
 }
 
 const occupantSlice = createSlice({

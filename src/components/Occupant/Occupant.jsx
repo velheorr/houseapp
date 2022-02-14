@@ -12,7 +12,6 @@ const Occupant = () => {
 	const dispatch = useDispatch();
 	const occupantsData = useSelector(state => state.occupant.occupantsData);
 	const occupantsAdress = useSelector(state => state.occupant.occupantsAdress);
-	const addressId = useSelector(state => state.occupant.addressId);
 
 	const renderOccupants = (data)=>{
 		if (data.clients) {
@@ -21,6 +20,7 @@ const Occupant = () => {
 	}
 	const occupants = renderOccupants(occupantsData)
 
+	// открытие модального окна, при условии что выбран улица, дом, квартира
 	const openModal = ()=>{
 		if (occupantsAdress.length > 1){
 			dispatch(showModal(true))
