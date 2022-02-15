@@ -54,8 +54,8 @@ const Modal = () => {
                         <CardContent>
                             <div className='adress'>{occupantsAdress}</div>
                             <div className='fields'>
-                                <TextField size='small' label="Телефон*" {...register("Phone",{ required: true})} error={!!errors.Name}/>
-                                <TextField size='small' label="E-mail" {...register("Email")}/>
+                                <TextField size='small' sx={{width :233}} label="Телефон*" {...register("Phone",{ required: true})} error={!!errors.Name}/>
+                                <TextField size='small' sx={{width :233}} label="E-mail" {...register("Email")}/>
                                 <TextField size='small' fullWidth label="Ф.И.О." {...register("Name")}/>
                             </div>
                         </CardContent>

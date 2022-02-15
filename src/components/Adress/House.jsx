@@ -1,13 +1,10 @@
 import {useEffect, useState} from "react";
 import './House.scss'
-import {Box, FormControl, Select, MenuItem, InputLabel, Button, Divider} from "@mui/material";
+import {Box, FormControl, Select, MenuItem, InputLabel, Button, Divider, TextField, Autocomplete} from "@mui/material";
 import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
 import {setOccupants} from "../Occupant/OccupantSlice";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-
 
 const House = () => {
 	// стейт для работы селектов
@@ -40,8 +37,6 @@ const House = () => {
 		}
 	};
 
-
-
 	// первоначальная загрузка данных первого селекта
 	useEffect(()=>{
 		dataStreet()
@@ -70,13 +65,10 @@ const House = () => {
 		return data.map((item,i) => <MenuItem key={i} value={item.id}>{item.name}</MenuItem>)
 	}
 
-
 	// рендер всех селектов
 	const renderStreet = renderOptions(streetData);
 	const renderHouse = renderOptions2(houseData);
 	const renderFlat = renderOptions2(flatData);
-
-	/*const renderStreet2 = renderOptions2(streetData)*/
 
 	// получение жителей
 	const getOcup = async (street, house, flat)=>{
@@ -94,7 +86,6 @@ const House = () => {
 			setFlat('');
 		}, 1000)
 	}
-
 
 	return (
 		<Box className='box'>

@@ -64,7 +64,6 @@ export const api = {
 	},
 	// обновление инф. о жителе
 	async updateClient(data){
-		console.log(data)
 		try {
 			await axios.put(`${baseURL}HousingStock/bind_client`, data);
 		} catch (error) {
