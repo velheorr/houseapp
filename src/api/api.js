@@ -33,11 +33,11 @@ export const api = {
 		}
 	},
 	// получение обьекта с жителями
-	async getOccupants(street, house, flatName) {
+	async getOccupants(street, house, flat) {
 		try {
 			const response = await axios.get(`${baseURL}HousingStock?companyId=1&streetId=${street}&houseId=${house}`);
 			const searchData = response.data.filter(item => {
-				return item.streetId === street && item.houseId === house && item.flat === flatName.flat
+				return item.streetId === street && item.houseId === house && item.flat === flat
 			})
 			return searchData[0]
 		} catch (error) {
@@ -63,6 +63,7 @@ export const api = {
 	},
 	// обновление инф. о жителе
 	async updateClient(data){
+		console.log(data)
 		try {
 			await axios.put(`${baseURL}HousingStock/bind_client`, data);
 		} catch (error) {

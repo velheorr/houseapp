@@ -5,6 +5,8 @@ import {api} from '../../api/api'
 import {useDispatch, useSelector} from "react-redux";
 import {optionsFlat, optionsHouse, optionsStreet} from './HouseSlice'
 import {setOccupants} from "../Occupant/OccupantSlice";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
 
 
 const House = () => {
@@ -19,22 +21,28 @@ const House = () => {
 	const flatData = useSelector(state => state.house.flatData);
 
 	// ф-я получает какой селект изменить и ф-ю стейта
-	const handleChange = (e, setSelect, id) => {
-		setSelect(e.target.value);
-		if (id === 'street'){
-			dataHouse(e.target.value);
+	const handleChange = (value) => {
+		console.log(value)
+		setStreet(value);
+			dataHouse(value.id);
 			setHouse('');
 			setFlat('');
-		}
+	}
+
+	const handleChange2 = (e, setSelect, id) => {
+		setSelect(e.target.value);
 		if (id === 'house'){
 			dataFlat(e.target.value);
 			setFlat('');
 		}
 		if (id === 'flat'){
 			const flatName = flatData.find(i => i.id === e.target.value);
-			getOcup(street, house, flatName);
+			getOcup(street.id, house, flatName.flat);
 		}
 	};
+
+
+
 	// первоначальная загрузка данных первого селекта
 	useEffect(()=>{
 		dataStreet()
@@ -53,24 +61,32 @@ const House = () => {
 		dispatch(optionsFlat(await api.getFlat(id)))
 	}
 
-	//ф-я рендера опций селекта
+	//ф-и рендера опций селекта
 	const renderOptions = (data) =>{
+		return data.map((i) => {
+			return {label: i.name , id: i.id}
+		})
+	}
+	const renderOptions2 = (data) =>{
 		return data.map((item,i) => <MenuItem key={i} value={item.id}>{item.name}</MenuItem>)
 	}
 
+
 	// рендер всех селектов
 	const renderStreet = renderOptions(streetData);
-	const renderHouse = renderOptions(houseData);
-	const renderFlat = renderOptions(flatData);
+	const renderHouse = renderOptions2(houseData);
+	const renderFlat = renderOptions2(flatData);
+
+	/*const renderStreet2 = renderOptions2(streetData)*/
 
 	// получение жителей
-	const getOcup = async (street, house, flatName)=>{
-		dispatch(setOccupants(await api.getOccupants(street, house, flatName)))
+	const getOcup = async (street, house, flat)=>{
+		dispatch(setOccupants(await api.getOccupants(street, house, flat)))
 	}
 
 	// временная кнопка для тестирования (загружает улицу и дом - Федюнинского 30)
 	const setData = ()=>{
-		setStreet(134);
+		setStreet({label: 'Федюнинского' , id: 134});
 		dataHouse(134).then()
 		setTimeout(()=>{
 			setHouse(294);
@@ -84,17 +100,16 @@ const House = () => {
 		<Box className='box'>
 			<p><span className='red'>*</span>Адрес</p>
 			<Divider style={{margin: '15px 0'}}/>
-			<FormControl sx={{ width: 250 }} >
-				<InputLabel id="street">Улица</InputLabel>
-				<Select
-					labelId="street"
-					id="street-select"
+			<FormControl>
+				<Autocomplete
+					disablePortal
+					id="street"
+					options={renderStreet}
 					value={street}
-					label="Улица"
-					onChange={(e)=> handleChange(e, setStreet, 'street')}
-				>
-					{renderStreet}
-				</Select>
+					sx={{ width: 250 }}
+					renderInput={(params) => <TextField {...params} label="Улица" />}
+					onChange={(e,value )=> handleChange(value)}
+				/>
 			</FormControl>
 			<FormControl sx={{ width: 150 }} >
 				<InputLabel id="house">Дом</InputLabel>
@@ -103,7 +118,7 @@ const House = () => {
 					id="house-select"
 					value={house}
 					label="Дом"
-					onChange={(e)=> handleChange(e, setHouse, 'house')}
+					onChange={(e)=> handleChange2(e, setHouse, 'house')}
 				>
 					{renderHouse}
 				</Select>
@@ -115,7 +130,7 @@ const House = () => {
 					id="flat-select"
 					value={flat}
 					label="Квартира"
-					onChange={(e)=> handleChange(e, setFlat, 'flat')}
+					onChange={(e)=> handleChange2(e, setFlat, 'flat')}
 				>
 					{renderFlat}
 				</Select>
