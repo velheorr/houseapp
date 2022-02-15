@@ -11,6 +11,7 @@ const occupantSlice = createSlice({
 	initialState,
 	reducers: {
 		setOccupants: (state, action) => {
+			console.log(action.payload)
 			state.occupantsData = action.payload
 			state.occupantsAdress = `${action.payload.streetName}, ${action.payload.building}, кв.${action.payload.flat}`
 			state.addressId = action.payload.addressId

@@ -39,6 +39,7 @@ export const api = {
 			const searchData = response.data.filter(item => {
 				return item.streetId === street && item.houseId === house && item.flat === flat
 			})
+
 			return searchData[0]
 		} catch (error) {
 			console.error(error);

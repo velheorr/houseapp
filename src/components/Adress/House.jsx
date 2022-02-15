@@ -22,7 +22,6 @@ const House = () => {
 
 	// ф-я получает какой селект изменить и ф-ю стейта
 	const handleChange = (value) => {
-		console.log(value)
 		setStreet(value);
 			dataHouse(value.id);
 			setHouse('');
@@ -81,13 +80,14 @@ const House = () => {
 
 	// получение жителей
 	const getOcup = async (street, house, flat)=>{
+		console.log(street, house, flat)
 		dispatch(setOccupants(await api.getOccupants(street, house, flat)))
 	}
 
 	// временная кнопка для тестирования (загружает улицу и дом - Федюнинского 30)
 	const setData = ()=>{
 		setStreet({label: 'Федюнинского' , id: 134});
-		dataHouse(134).then()
+		dataHouse(134)
 		setTimeout(()=>{
 			setHouse(294);
 			dataFlat(294);
